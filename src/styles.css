@@ -39,3 +39,9 @@ ul {
 .search-form {
     margin-bottom: 200px;
 }
+#author{
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: left;
+    font-size: small;
+}
