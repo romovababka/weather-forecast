@@ -46,6 +46,9 @@ function showTemperature(response){
     let dateText = document.getElementById("show-date");
     dateText.innerText = "";
 
+    let icon = document.querySelector(".weather-icon");
+    icon.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
+
 }
 
 
@@ -97,6 +100,10 @@ function showTempGeo(response){
 
     document.getElementById("search-text-input").value="";
     document.getElementById("search-text-input").placeholder= `${response.data.name}`;
+
+    let icon = document.querySelector(".weather-icon");
+    icon.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
+
 }
 
 
