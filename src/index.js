@@ -151,20 +151,40 @@ function formatDate() {
 
 }
 
-function displayForecastSix(){
-    let forecastEl = document.querySelector(".weather-six-days");
-    let days = ["MON", "TUE", "WED", "THU"];
+function displayForecastSix(response){
+    let forecastElement = document.querySelector(".weather-six-days");
+    let forecast = response.data.daily;
+
+
     let forecastHTML = `<div class="row">`;
-    days.forEach(function (day){
-        forecastHTML =
+    forecast.forEach(function (forecastDay, index) {
+        if (index < 6){
+            forecastHTML =
+                forecastHTML +
+                `<div class="col-2">
+                <div class="day">${formatDay(forecastDay.dt)}</div>
+                <img src="http://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png" alt="" width="36"/> <br>
+                
+                <span class="temperature-small-max">${Math.round(forecastDay.temp.max)}</span> <span class="temperature-small-min">${Math.round(forecastDay.temp.min)}</span>
+            </div>`;
+        }
+        /*forecastHTML =
             forecastHTML +
             `<div class="col-2">
-                <div class="day">${day}</div>
-                <img src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png" width="36"/> <br>
-                <span class="temperature-small-max">12</span> <span class="temperature-small-min">8</span>
-            </div>`;
+                <div class="day">${formatDay(forecastDay.dt)}</div>
+                <img src="http://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png" alt="" width="36"/> <br>
+                
+                <span class="temperature-small-max">${Math.round(forecastDay.temp.max)}</span> <span class="temperature-small-min">${Math.round(forecastDay.temp.min)}</span>
+            </div>`;*/
     })
 
     forecastHTML = forecastHTML + `</div>`;
-    forecastEl.innerHTML = forecastHTML;
+    forecastElement.innerHTML = forecastHTML;
+}
+
+function formatDay(time){
+    let date = new Date(time * 1000);
+    let day = date.getDay();
+    let days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+    return days[day];
 }
