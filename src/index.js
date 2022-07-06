@@ -6,6 +6,15 @@ form.addEventListener("submit", getTemp);
 let searchButton = document.querySelector("#search");
 searchButton.addEventListener("click", getTemp)
 
+
+function showPrediction(coordinates){
+    console.log(coordinates);
+    let APIkey ="7746bdeabca928cfedcad71e52fd9d66";
+    let apiURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&units=metric&appid=${APIkey}`;
+    axios.get(apiURL).then(displayForecastSix);
+}
+
+
 function getTemp (event) {
     event.preventDefault();
     let apiKey = "7746bdeabca928cfedcad71e52fd9d66";
@@ -49,6 +58,8 @@ function showTemperature(response){
     let icon = document.querySelector(".weather-icon");
     icon.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
 
+    showPrediction(response.data.coord);
+    //displayForecastSix();
 }
 
 
@@ -138,4 +149,22 @@ function formatDate() {
         current.innerHTML = `${currentDay} ${hours}:${minutes}`;
     }
 
+}
+
+function displayForecastSix(){
+    let forecastEl = document.querySelector(".weather-six-days");
+    let days = ["MON", "TUE", "WED", "THU"];
+    let forecastHTML = `<div class="row">`;
+    days.forEach(function (day){
+        forecastHTML =
+            forecastHTML +
+            `<div class="col-2">
+                <div class="day">${day}</div>
+                <img src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png" width="36"/> <br>
+                <span class="temperature-small-max">12</span> <span class="temperature-small-min">8</span>
+            </div>`;
+    })
+
+    forecastHTML = forecastHTML + `</div>`;
+    forecastEl.innerHTML = forecastHTML;
 }
