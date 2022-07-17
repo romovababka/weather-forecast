@@ -115,6 +115,7 @@ function showTempGeo(response){
     let icon = document.querySelector(".weather-icon");
     icon.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
 
+    showPrediction(response.data.coord);
 }
 
 
